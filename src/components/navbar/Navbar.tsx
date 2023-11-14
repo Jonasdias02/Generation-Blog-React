@@ -22,9 +22,9 @@ function Navbar() {
             <div className='text-2xl font-bold uppercase'>Blog Pessoal</div>
 
             <div className='flex gap-4'>
-              <Link to='/login' className='hover:underline'>Login</Link>
+              <Link to='/postagens' className='hover:underline'>Postagens</Link>
               <Link to='/home' className='hover:underline'>Home</Link>
-              <div className='hover:underline'>Postagens</div>
+              <Link to='/login' className='hover:underline'>Login</Link>
               <Link to='/temas' className='hover:underline'>Temas</Link>
               <Link to='/cadastroTema' className='hover:underline'>Cadastrar Tema</Link>
               <div className='hover:underline'>Perfil</div>
