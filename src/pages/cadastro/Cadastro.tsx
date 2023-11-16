@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service'
 import './Cadastro.css'
+import { toastAlerta } from '../../utils/toastAlerta'
 
 function Cadastro() {
 
@@ -19,7 +21,7 @@ function Cadastro() {
     foto: ''
   })
 
-  const [usuarioResposta, setUsuarioResposta] = useState<Usuario>({
+  const [usuarioResposta] = useState<Usuario>({
     id: 0,
     nome: '',
     usuario: '',
@@ -48,25 +50,28 @@ function Cadastro() {
     })
   }
 
-  async function cadastrarNovoUsuario(e: ChangeEvent<HTMLFormElement>) {
+  async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     if (confirmaSenha === usuario.senha && usuario.senha.length >= 8) {
+        setIsLoading(true)
 
-      try {
-        await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuarioResposta)
-        alert('Usuário cadastrado com sucesso')
+        try {
+            await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario)
+            toastAlerta('Usuário cadastrado com sucesso', "sucesso")
 
-      } catch (error) {
-        alert('Erro ao cadastrar o Usuário')
-      }
+        } catch (error) {
+            toastAlerta('Erro ao cadastrar o Usuário', "erro")
+        }
 
     } else {
-      alert('Dados inconsistentes. Verifique as informações de cadastro.')
-      setUsuario({ ...usuario, senha: "" }) // Reinicia o campo de Senha
-      setConfirmaSenha("")                  // Reinicia o campo de Confirmar Senha
+        toastAlerta('Erro ao cadastrar o Usuário', "erro")
+        setUsuario({ ...usuario, senha: "" })
+        setConfirmaSenha("")
     }
-  }
+
+    setIsLoading(false)
+}
 
   return (
     <>
@@ -148,4 +153,10 @@ function Cadastro() {
   )
 }
 
+function setIsLoading(_arg0: boolean) {
+  throw new Error('Function not implemented.')
+}
+
 export default Cadastro
+
+
