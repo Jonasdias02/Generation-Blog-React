@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import { ReactNode, useContext } from 'react'
 import { FacebookLogo, InstagramLogo, LinkedinLogo } from '@phosphor-icons/react'
 
@@ -6,7 +5,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 
 function Footer() {
 
-    let data = new Date().getFullYear()
+    const data = new Date().getFullYear()
 
     const { usuario } = useContext(AuthContext)
 
